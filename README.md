@@ -2,6 +2,8 @@
 
 ![Architecture Diagram](assets/architecture-diagram.png)
 
+![Architecture Diagram](assets/architecture-diagram.png)
+
 ## Objective
 This project demonstrates the deployment, configuration, and telemetry validation of the **LimaCharlie Endpoint Detection and Response (EDR)** agent on a Windows host. The goal is to capture live process creation telemetry and construct custom Detection & Response (D&R) rules for Threat Hunting and SOC monitoring.
 
@@ -32,4 +34,5 @@ A custom D&R rule was engineered to detect unapproved binary executions by match
 ## Verification & Key Findings
 * EDR sensor maintains continuous low-latency streaming to the SaaS cloud controller.
 * Event timeline correctly correlates parent-child process trees (powershell.exe -> cmd.exe -> whoami.exe).
+
 
