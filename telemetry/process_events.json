@@ -1,0 +1,13 @@
+{
+  "event": {
+    "FILE_PATH": "C:\\Windows\\System32\\notepad.exe",
+    "COMMAND_LINE": "notepad.exe",
+    "PARENT_PROCESS_ID": 4120,
+    "PROCESS_ID": 18824,
+    "USER_NAME": "Tosin"
+  },
+  "routing": {
+    "event_type": "NEW_PROCESS",
+    "hostname": "desktop-1q7qks0.lan"
+  }
+}

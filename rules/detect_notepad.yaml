@@ -1,0 +1,9 @@
+# Detection Rule for Notepad Launch
+detect:
+  event: NEW_PROCESS
+  op: ends with
+  path: event/FILE_PATH
+  value: notepad.exe
+response:
+  - action: report
+    name: Suspicious Notepad Execution
