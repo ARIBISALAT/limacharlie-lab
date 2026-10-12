@@ -5,7 +5,7 @@ This project demonstrates the deployment, configuration, and telemetry validatio
 
 ## System Architecture & Details
 
-![Architecture Diagram](assets/architecture-diagram png)
+![Architecture Diagram](assets/architecture-diagram.png)
 
 * **EDR Agent:** LimaCharlie Sensor v5.3.12 (64-bit)
 * **Endpoint Host:** Windows 10 (desktop-1q7qks0.lan)
@@ -19,29 +19,29 @@ This project demonstrates the deployment, configuration, and telemetry validatio
 ### 1. Agent Deployment & Service Verification
 The LimaCharlie sensor was installed via PowerShell running as Administrator using the organization installation key. Verification was confirmed by inspecting the running service state.
 
-![Agent Installation & Service Verification](assets/1-agent-installation png)
+![Agent Installation & Service Verification](assets/1-agent-installation.png)
 
 ### 2. Sensor Cloud Enrollment & Telemetry Streaming
 Once installed, the endpoint connected to the LimaCharlie cloud console. Live telemetry streaming was validated by checking the active sensor connection status and real-time process list.
 
-![Sensor Cloud Enrollment](assets/2-cloud-enrollment png)
+![Sensor Cloud Enrollment](assets/2-cloud-enrollment.png)
 
 ### 3. Process Creation Telemetry Analysis
 Process execution telemetry (NEW_PROCESS events) was captured and analyzed. Telemetry fields were inspected to extract process paths, parent PIDs, command-line parameters, and CODE_IDENTITY hashes.
 
-![Process Telemetry Event Analysis](assets/3-process-telemetry png)
+![Process Telemetry Event Analysis](assets/3-process-telemetry.png)
 
 ### 4. Detection & Response (D&R) Rule Construction
 A custom D&R rule was engineered in YAML to detect unapproved binary executions (
 otepad.exe) and trigger automated alerting actions.
 
-![D&R Rule Engineering](assets/4-dnr-rule-editor png)
+![D&R Rule Engineering](assets/4-dnr-rule-editor.png)
 
 ### 5. Detection Rule Validation & Alert Triggering
 To validate the rule, 
 otepad.exe was launched on the Windows endpoint. The LimaCharlie detection engine successfully matched the process creation telemetry and triggered a real-time detection alert.
 
-![Detection Alert Validation](assets/5-detection-alert png)
+![Detection Alert Validation](assets/5-detection-alert.png)
 
 ---
 
