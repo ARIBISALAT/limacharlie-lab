@@ -8,7 +8,7 @@ This project demonstrates the deployment, configuration, and telemetry validatio
 ![Architecture Diagram](assets/architecture-diagram png)
 
 * **EDR Agent:** LimaCharlie Sensor v5.3.12 (64-bit)
-* **Endpoint Host:** Windows 10 (`desktop-1q7qks0.lan`)
+* **Endpoint Host:** Windows 10 (desktop-1q7qks0.lan)
 * **Deployment Method:** Administrative PowerShell CLI
 * **SIEM / Telemetry Transport:** Real-time SaaS Cloud Streaming
 
@@ -27,23 +27,25 @@ Once installed, the endpoint connected to the LimaCharlie cloud console. Live te
 ![Sensor Cloud Enrollment](assets/2-cloud-enrollment png)
 
 ### 3. Process Creation Telemetry Analysis
-Process execution telemetry (`NEW_PROCESS` events) was captured and analyzed. Telemetry fields were inspected to extract process paths, parent PIDs, command-line parameters, and `CODE_IDENTITY` hashes.
+Process execution telemetry (NEW_PROCESS events) was captured and analyzed. Telemetry fields were inspected to extract process paths, parent PIDs, command-line parameters, and CODE_IDENTITY hashes.
 
 ![Process Telemetry Event Analysis](assets/3-process-telemetry png)
 
 ### 4. Detection & Response (D&R) Rule Construction
-A custom D&R rule was engineered in YAML to detect unapproved binary executions (`notepad.exe`) and trigger automated alerting actions.
+A custom D&R rule was engineered in YAML to detect unapproved binary executions (
+otepad.exe) and trigger automated alerting actions.
 
 ![D&R Rule Engineering](assets/4-dnr-rule-editor png)
 
 ### 5. Detection Rule Validation & Alert Triggering
-To validate the rule, `notepad.exe` was launched on the Windows endpoint. The LimaCharlie detection engine successfully matched the process creation telemetry and triggered a real-time detection alert.
+To validate the rule, 
+otepad.exe was launched on the Windows endpoint. The LimaCharlie detection engine successfully matched the process creation telemetry and triggered a real-time detection alert.
 
 ![Detection Alert Validation](assets/5-detection-alert png)
 
 ---
 
 ## Repository Structure
-* `assets/`: Contains architecture diagrams and step-by-step proof screenshots.
-* `rules/`: Custom YAML Detection & Response rules.
-* `telemetry/`: Raw JSON event logs captured during testing.
+* \ssets/\: Contains architecture diagrams and step-by-step proof screenshots.
+* \ules/\: Custom YAML Detection & Response rules.
+* \	elemetry/\: Raw JSON event logs captured during testing.
