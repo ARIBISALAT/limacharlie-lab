@@ -24,7 +24,7 @@ The LimaCharlie sensor was installed via PowerShell running as Administrator usi
 ### 2. Sensor Cloud Enrollment & Telemetry Streaming
 Once installed, the endpoint connected to the LimaCharlie cloud console. Live telemetry streaming was validated by checking the active sensor connection status and real-time process list.
 
-![Sensor Cloud Enrollment](assets/2-cloud-enrollment.png)
+![Sensor Cloud Enrollment](assets/02-active-analytics-rules.png)
 
 ### 3. Process Creation Telemetry Analysis
 Process execution telemetry (NEW_PROCESS events) was captured and analyzed. Telemetry fields were inspected to extract process paths, parent PIDs, command-line parameters, and CODE_IDENTITY hashes.
