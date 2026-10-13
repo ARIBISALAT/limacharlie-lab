@@ -1,0 +1,14 @@
+id: d187e1a0-4011-4a87-b912-atomic-win-02
+name: Detect Persistence via Registry Run Keys
+description: Detects addition or modification of Windows Registry Run keys via reg.exe.
+severity: High
+tactics:
+  - Persistence
+techniques:
+  - T1547.001
+query: |
+  SecurityEvent
+  | where TimeGenerated >= ago(1h)
+  | where EventID == 4688
+  | where CommandLine has "reg" and CommandLine has "add" and CommandLine has_any ("\\Run", "\\RunOnce")
+  | project TimeGenerated, Computer, Account, ParentProcessName, NewProcessName, CommandLine
