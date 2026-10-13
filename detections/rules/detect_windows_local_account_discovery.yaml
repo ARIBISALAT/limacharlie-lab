@@ -1,0 +1,14 @@
+id: d187e1a0-4011-4a87-b912-atomic-win-01
+name: Detect Local Account Discovery via CLI
+description: Detects command-line account enumeration commands (net user, Get-LocalUser, etc.) on Windows endpoints.
+severity: Medium
+tactics:
+  - Discovery
+techniques:
+  - T1087.001
+query: |
+  SecurityEvent
+  | where TimeGenerated >= ago(1h)
+  | where EventID == 4688
+  | where CommandLine has_any ("net user", "net localgroup", "Get-LocalUser", "whoami /priv")
+  | project TimeGenerated, Computer, Account, ParentProcessName, NewProcessName, CommandLine
