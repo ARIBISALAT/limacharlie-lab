@@ -54,4 +54,3 @@ Executed adversary emulation commands via Atomic Red Team, successfully firing a
 ## 🔍 Key Findings & Triage Notes
 * **SIEM Logging Dependency:** Microsoft Sentinel requires an explicit Data Collection Rule (DCR) configured on the Azure Monitor Agent (AMA) to ingest Windows `SecurityEvent` Event ID 4688 (Process Creation) logs into the Workspace.
 * **EDR Redundancy:** Continuous process lineage and command-line execution arguments were captured independently at the EDR layer via LimaCharlie, ensuring uninterrupted threat visibility even when SIEM log forwarders experience configuration gaps.
-
