@@ -1,51 +1,51 @@
-# LimaCharlie EDR Setup & Telemetry Analysis Lab
+﻿# LimaCharlie EDR Setup & Telemetry Analysis Lab
 
 ## Objective
-This project demonstrates the deployment, configuration, and telemetry validation of the **LimaCharlie Endpoint Detection and Response (EDR)** agent on a Windows host. The goal is to capture live process creation telemetry and construct custom Detection & Response (D&R) rules for Threat Hunting and SOC monitoring.
+This project demonstrates the deployment, configuration, and telemetry validation of the **LimaCharlie Endpoint Detection and Response (EDR)** agent on a Windows host. The goal is to capture live process creation telemetry, emulate adversary behavior via Atomic Red Team, and construct custom Detection & Response (D&R) rules for Threat Hunting and SOC monitoring.
+
+---
 
 ## System Architecture & Details
 
-![Architecture Diagram](assets/architecture-diagram.png)
++---------------------------------+                     +------------------------+                     +-----------------------+                     +-------------------+
+| Windows 10 Workstation          |                     |                        |                     |                       |                     | SOC Analyst /     |
+| (desktop-1q7qks0.lan)           |---Process Telemetry-->| LimaCharlie EDR Cloud  |---D&R Rules & Alerts->| Microsoft Sentinel    |---Merged PR Rules-->| GitHub Repo       |
+| Running rphcpsvc service        |                     |                        |                     | (KQL Analytics)       |                     | (limacharlie-lab) |
++---------------------------------+                     +------------------------+                     +-----------------------+                     +-------------------+
 
-* **EDR Agent:** LimaCharlie Sensor v5.3.12 (64-bit)
-* **Endpoint Host:** Windows 10 (desktop-1q7qks0.lan)
-* **Deployment Method:** Administrative PowerShell CLI
-* **SIEM / Telemetry Transport:** Real-time SaaS Cloud Streaming
 
----
-
-## Lab Execution & Implementation
-
-### 1. Agent Deployment & Service Verification
-The LimaCharlie sensor was installed via PowerShell running as Administrator using the organization installation key. Verification was confirmed by inspecting the running service state.
-
-![Agent Installation & Service Verification](assets/1-agent-installation.png)
-
-### 2. Sensor Cloud Enrollment & Telemetry Streaming
-Once installed, the endpoint connected to the LimaCharlie cloud console. Live telemetry streaming was validated by checking the active sensor connection status and real-time process list.
-
-![Sensor Cloud Enrollment](assets/02-active-analytics-rules.png)
-
-### 3. Process Creation Telemetry Analysis
-Process execution telemetry (NEW_PROCESS events) was captured and analyzed. Telemetry fields were inspected to extract process paths, parent PIDs, command-line parameters, and CODE_IDENTITY hashes.
-
-![Process Telemetry Event Analysis](assets/3-process-telemetry.png)
-
-### 4. Detection & Response (D&R) Rule Construction
-A custom D&R rule was engineered in YAML to detect unapproved binary executions (
-otepad.exe) and trigger automated alerting actions.
-
-![D&R Rule Engineering](assets/4-dnr-rule-editor.png)
-
-### 5. Detection Rule Validation & Alert Triggering
-To validate the rule, 
-otepad.exe was launched on the Windows endpoint. The LimaCharlie detection engine successfully matched the process creation telemetry and triggered a real-time detection alert.
-
-![Detection Alert Validation](assets/5-detection-alert.png)
+* **Cloud Infrastructure:** Azure Resource Group `rg-livefire-soc` (`vm-win-01`, `vm-linux-01`)
+* **SIEM / Analytics:** Microsoft Sentinel (KQL)
+* **EDR Agent:** LimaCharlie EDR (`rphcpsvc` Windows service)
+* **Adversary Emulation:** Atomic Red Team (`T1087.001`, `T1547.001`)
+* **Repository:** `ARIBISALAT/limacharlie-lab`
 
 ---
 
-## Repository Structure
-* \ssets/\: Contains architecture diagrams and step-by-step proof screenshots.
-* \ules/\: Custom YAML Detection & Response rules.
-* \	elemetry/\: Raw JSON event logs captured during testing.
+## 🛡️ Proof Artifacts & Implementation Details
+
+### 1. Detection Rule CI/CD Workflow
+Authored custom KQL detection rules for MITRE ATT&CK techniques T1087.001 (Local Account Discovery) and T1547.001 (Registry Run Keys Persistence). Submitted changes via a feature branch and merged Pull Request #1 into `main`[cite: 3].
+
+![GitHub PR Merged](docs/images/01_github_pr_merged_kql_rules.png)
+
+### 2. Endpoint Detection & Response (EDR) Verification
+Deployed and registered the LimaCharlie EDR sensor on `vm-win-01`. Sensor status verified active (`is_online is true`) on host `desktop-1q7qks0.lan`[cite: 2].
+
+![LimaCharlie Dashboard](docs/images/02_limacharlie_edr_sensor_online.png)
+
+### 3. Local Endpoint Execution & Telemetry
+Verified agent operational state at the endpoint layer via PowerShell (`rphcpsvc` service running) while executing Atomic Red Team technique simulations.
+
+![PowerShell Service Status](docs/images/03_powershell_atomic_red_team_execution.png)
+
+### 4. Infrastructure Lifecycle & Cost Control
+Concluded simulation lifecycle by deallocating compute resources via Azure CLI (`az vm deallocate`) to eliminate unnecessary subscription consumption[cite: 1].
+
+![Azure VMs Deallocated](docs/images/04_azure_vms_deallocated.png)
+
+---
+
+## 🔍 Key Findings & Triage Notes
+* **SIEM Logging Dependency:** Microsoft Sentinel requires an explicit Data Collection Rule (DCR) configured on the Azure Monitor Agent (AMA) to ingest Windows `SecurityEvent` Event ID 4688 (Process Creation) logs into the Workspace.
+* **EDR Redundancy:** Continuous process lineage and command-line execution arguments were captured independently at the EDR layer via LimaCharlie, ensuring uninterrupted threat visibility even when SIEM log forwarders experience configuration gaps.
